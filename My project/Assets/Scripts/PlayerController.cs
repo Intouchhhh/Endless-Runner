@@ -15,15 +15,17 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Horizontal movement
-        float horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * horizontalInput * speed * Time.deltaTime);
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
+        transform.Translate(Vector3.right * speed * Time.deltaTime);
 
-        //Jump
+        //Jump 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded) 
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
+
     }
 
     void OnCollisionEnter(Collision collision)
@@ -32,6 +34,11 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            Debug.Log("Player has collided with the ground.");
+        }
+        else
+        {
+            Debug.Log("Collided with: " + collision.collider.name);
         }
     }
 }
