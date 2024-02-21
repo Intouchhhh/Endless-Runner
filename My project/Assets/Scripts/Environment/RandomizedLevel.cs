@@ -5,9 +5,9 @@ using UnityEngine;
 public class RandomizedSection : MonoBehaviour
 {
     public GameObject[] groundSections;
-    public float zSpawn = 0;
-    public float sectionLength = 99;
-    public int numberOfSections = 5;
+    public float zSpawn = 0; // where section will spawn
+    public float sectionLength = 99; // length of section
+    public int numberOfSections = 5; //number of section we want to generate
     public Transform playerTransform;
 
     private List<GameObject> activeSections = new List<GameObject>();

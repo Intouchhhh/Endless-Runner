@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 5.0f;
-    public float jumpForce = 10.0f;
-    public float dodgeSpeed = 7.5f; 
+    public float speed = 10.0f; // forward speed
+    public float jumpForce = 9.0f; // jump force
+    public float dodgeSpeed = 7.5f; // left right movement speed
     private Rigidbody rb;
-    private bool isGrounded;
+    private bool isGrounded; 
     
     void Start()
     {
@@ -34,15 +34,20 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        //this use to check if the player is on the ground
-        if(collision.gameObject.CompareTag("Ground"))
+        // Check if player is collied with the ground
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
-            Debug.Log("Player has collided with the ground.");
-        }
-        else
-        {
-            Debug.Log("Collided with: " + collision.collider.name);
         }
     }
+
+    void OnCollisionExit(Collision collision)
+    {
+        // Check if player is no longer on the ground
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+  
 }
