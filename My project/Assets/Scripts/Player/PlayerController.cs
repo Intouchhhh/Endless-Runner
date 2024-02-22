@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,7 +8,9 @@ public class PlayerController : MonoBehaviour
     public float dodgeSpeed = 7.5f; // left right movement speed
     private Rigidbody rb;
     private bool isGrounded; 
-    
+    private int groundContactCount = 0;
+    public GameObject PlayerObject;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -23,7 +26,8 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
-            Debug.Log("Jumped");
+            PlayerObject.GetComponent<Animator>().Play("Jump");
+            StartCoroutine(JumpSequence());
         }
         
         // left right movement using x axis ( A/D key )
@@ -33,24 +37,33 @@ public class PlayerController : MonoBehaviour
        
     }
 
-    void OnCollisionEnter(Collision collision)
+     void OnCollisionEnter(Collision collision) // to check and count when player collide with ground
     {
-        // Check if player is collied with the ground
         if (collision.gameObject.CompareTag("Ground"))
         {
+            groundContactCount++; 
             isGrounded = true;
-            Debug.Log("Grounded");
         }
     }
 
-    void OnCollisionExit(Collision collision)
+    void OnCollisionExit(Collision collision) 
     {
-        // Check if player is no longer on the ground
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") && groundContactCount > 0)
         {
-            isGrounded = false;
-            Debug.Log("Not Grounded");
+            groundContactCount--; // reduce ground contact count
+            if (groundContactCount == 0)
+            {
+                isGrounded = false;
+            }
         }
     }
   
+    IEnumerator JumpSequence()
+{
+    yield return new WaitForSeconds(0.45f);
+    isGrounded = true;
+    yield return new WaitForSeconds(0.45f);
+    isGrounded = false;
+    PlayerObject.GetComponent<Animator>().Play("Running"); // Corrected case
+}
 }
