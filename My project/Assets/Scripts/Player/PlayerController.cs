@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+            Debug.Log("Jumped");
         }
         
         // left right movement using x axis ( A/D key )
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            Debug.Log("Grounded");
         }
     }
 
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
+            Debug.Log("Not Grounded");
         }
     }
   
