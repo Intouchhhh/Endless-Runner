@@ -2473,7 +2473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  jumpForce: 8
+  jumpForce: 10
   dodgeSpeed: 7.5
   PlayerObject: {fileID: 1192688257}
 --- !u!54 &235402445

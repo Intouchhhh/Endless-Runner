@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 10.0f; // forward speed
-    public float jumpForce = 9.0f; // jump force
+    public float jumpForce = 10.0f; // jump force
     public float dodgeSpeed = 7.5f; // left right movement speed
     private Rigidbody rb;
     private bool isGrounded; 
